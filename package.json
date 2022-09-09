@@ -1,0 +1,41 @@
+{
+  "name": "adnauseam",
+  "packageManager": "yarn@3.2.3",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "env-cmd node .",
+    "build": "rimraf dist && tsc",
+    "format": "yarn run prettier && yarn run lint:fix",
+    "prettier": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint --ext ts .",
+    "lint:fix": "eslint --ext ts --fix .",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8",
+    "@types/glob": "^8",
+    "@types/prettier": "^2",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
+    "@typescript-eslint/parser": "^5.36.2",
+    "env-cmd": "^10.1.0",
+    "eslint": "^8.23.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.8.2"
+  },
+  "dependencies": {
+    "bufferutil": "^4.0.6",
+    "discord.js": "^14.3.0",
+    "erlpack": "^0.1.4",
+    "glob": "^8.0.3",
+    "utf-8-validate": "^5.0.9",
+    "zlib-sync": "^0.1.7"
+  },
+  "imports": {
+    "#types/*": "dist/types/*.js"
+  }
+}
