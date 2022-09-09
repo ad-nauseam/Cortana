@@ -1,6 +1,4 @@
 import type { Event } from '#types/Event';
-import type { Collection } from "discord.js"
-import type { GuildChatCommand } from '#types/Command';
 
 export const event: Event<'ready'> = {
   name: 'ready',
