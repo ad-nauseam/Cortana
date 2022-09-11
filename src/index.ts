@@ -34,7 +34,7 @@ class ADN extends Client {
         IntentsBitField.Flags.Guilds,
         IntentsBitField.Flags.MessageContent,
         IntentsBitField.Flags.GuildMessages,
-        IntentsBitField.Flags.GuildMessageReactions
+        IntentsBitField.Flags.GuildMessageReactions,
       ],
       partials: [Partials.Reaction, Partials.Message],
     });

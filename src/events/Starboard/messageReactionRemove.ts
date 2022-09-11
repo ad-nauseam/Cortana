@@ -15,20 +15,20 @@ export const event: Event<'messageReactionRemove'> = {
     if (!channel.isTextBased()) return console.log('Starboard channel must be text based');
 
     const exists = await mr.client.db.starboardGet(mr.message.id);
-    if (!exists.length) return;
+    if (!exists) return;
 
     const content = `⭐ ${mr.count} ${mr.message.channel}\n ${mr.message.content ? `> ${mr.message.content}` : ''}`;
 
     if (mr.count <= 1) {
-      channel.messages.delete(exists[0].id);
-      await mr.client.db.starboardDelete(exists[0].id);
+      channel.messages.delete(exists.id);
+      await mr.client.db.starboardDelete(exists.id);
     } else {
       const webhook = await mr.client.fetchWebhook(
         process.env['STARBOARD_WEBHOOK_ID'],
         process.env['STARBOARD_WEBHOOK_TOKEN'],
       );
 
-      webhook.editMessage(exists[0].id, { content });
+      webhook.editMessage(exists.id, { content });
     }
   },
 };

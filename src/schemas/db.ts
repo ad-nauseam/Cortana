@@ -17,8 +17,9 @@ export class DB {
     return this.sql<Starboard[]>`DELETE FROM starboard WHERE oid=${id} RETURNING *`;
   }
 
-  starboardGet(id: string) {
-    return this.sql<Starboard[]>`SELECT * FROM starboard WHERE oid=${id}`;
+  async starboardGet(id: string) {
+    const res = await this.sql<Starboard[]>`SELECT * FROM starboard WHERE oid=${id}`;
+    return res[0]
   }
 
   starboardAdd(id: string, oid: string) {
