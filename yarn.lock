@@ -406,6 +406,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     glob: ^8.0.3
     husky: ^8.0.1
+    postgres: ^3.2.4
     prettier: ^2.7.1
     rimraf: ^3.0.2
     typescript: ^4.8.2
@@ -1802,6 +1803,13 @@ __metadata:
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
   checksum: 050c865ce81119c4822c45d3c84f1ced46f93a0126febae20737bd05ca20589c564d6e9226977df859ed5e03dc73f02584a2b0faad36e896936238238b0446cf
+  languageName: node
+  linkType: hard
+
+"postgres@npm:^3.2.4":
+  version: 3.2.4
+  resolution: "postgres@npm:3.2.4"
+  checksum: 613d09d66927bd436e286685881fa40297bac97ca3fc34359abf347f1e9cf00fb3c6fea328b004c632c507129e279883354b4e411d9c0c7478f88d670df78503
   languageName: node
   linkType: hard
 
