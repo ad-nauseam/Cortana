@@ -1,5 +1,5 @@
 import type { ImageURLOptions } from 'discord.js';
-import { ApplicationCommandOptionType as atype, EmbedBuilder } from 'discord.js';
+import { ApplicationCommandOptionType as atype } from 'discord.js';
 import type { ChatCommand } from '#types/Command';
 
 const imageTypes: string[] = ['webp', 'png', 'jpg', 'jpeg', 'gif'];
@@ -38,9 +38,9 @@ export const command: ChatCommand = {
   async exec(int) {
     const user = int.options.getUser('user') ?? int.user;
     await int.client.users.fetch(user, { force: true });
-    
+
     if (!user.bannerURL()) {
-        return int.reply({ content: 'This user has no banner', ephemeral: true });
+      return int.reply({ content: 'This user has no banner', ephemeral: true });
     }
 
     const extension = (int.options.getString('format') ?? 'webp') as ImageURLOptions['extension'];
@@ -52,11 +52,12 @@ export const command: ChatCommand = {
 
     int.reply({
       embeds: [
-        new EmbedBuilder()
-          .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
-          .setColor('Random')
-          .setImage(user.bannerURL(options)!)
-          .setTimestamp(),
+        {
+          author: { name: user.tag, icon_url: user.displayAvatarURL() },
+          color: 0x00baf3,
+          image: { url: user.bannerURL(options)! },
+          timestamp: Date.now().toString(),
+        },
       ],
       ephemeral: int.options.getBoolean('ephemeral') ?? true,
     });
