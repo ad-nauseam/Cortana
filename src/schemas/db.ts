@@ -19,7 +19,7 @@ export class DB {
 
   async starboardGet(id: string) {
     const res = await this.sql<Starboard[]>`SELECT * FROM starboard WHERE oid=${id}`;
-    return res[0] || undefined;
+    return res[0] ?? undefined;
   }
 
   starboardAdd(id: string, oid: string) {
