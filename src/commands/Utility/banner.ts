@@ -39,23 +39,26 @@ export const command: ChatCommand = {
     const user = int.options.getUser('user') ?? int.user;
     await int.client.users.fetch(user, { force: true });
 
-    if (!user.bannerURL()) {
-      return int.reply({ content: 'This user has no banner', ephemeral: true });
-    }
-
     const extension = (int.options.getString('format') ?? 'webp') as ImageURLOptions['extension'];
+
     const options: ImageURLOptions = {
       forceStatic: extension !== 'gif',
       extension,
       size: int.options.getNumber('size') as ImageURLOptions['size'],
     };
 
+    const url = user.bannerURL(options);
+
+    if (!url) {
+      return int.reply({ content: 'This user has no banner', ephemeral: true });
+    }
+
     int.reply({
       embeds: [
         {
           author: { name: user.tag, icon_url: user.displayAvatarURL() },
           color: 0x00baf3,
-          image: { url: user.bannerURL(options)! },
+          image: { url },
           timestamp: Date.now().toString(),
         },
       ],

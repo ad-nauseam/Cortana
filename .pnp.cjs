@@ -47,6 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:32eb315b065fd425fde0bc10448edd40cad4469d40f99a566e4a7b7d7183c9bb630faf1330a9ebd041923655a143e0c4f9a4cdd0878f4dd7a8cdc381033e85ba#npm:4.2.1"],\
             ["glob", "npm:8.0.3"],\
             ["husky", "npm:8.0.1"],\
+            ["postgres", "npm:3.2.4"],\
             ["prettier", "npm:2.7.1"],\
             ["rimraf", "npm:3.0.2"],\
             ["typescript", "patch:typescript@npm%3A4.8.2#~builtin<compat/typescript>::version=4.8.2&hash=a1c5e5"],\
@@ -604,6 +605,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:32eb315b065fd425fde0bc10448edd40cad4469d40f99a566e4a7b7d7183c9bb630faf1330a9ebd041923655a143e0c4f9a4cdd0878f4dd7a8cdc381033e85ba#npm:4.2.1"],\
             ["glob", "npm:8.0.3"],\
             ["husky", "npm:8.0.1"],\
+            ["postgres", "npm:3.2.4"],\
             ["prettier", "npm:2.7.1"],\
             ["rimraf", "npm:3.0.2"],\
             ["typescript", "patch:typescript@npm%3A4.8.2#~builtin<compat/typescript>::version=4.8.2&hash=a1c5e5"],\
@@ -2239,6 +2241,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/picomatch-npm-2.3.1-c782cfd986-050c865ce8.zip/node_modules/picomatch/",\
           "packageDependencies": [\
             ["picomatch", "npm:2.3.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["postgres", [\
+        ["npm:3.2.4", {\
+          "packageLocation": "./.yarn/cache/postgres-npm-3.2.4-9f8c755dcd-613d09d669.zip/node_modules/postgres/",\
+          "packageDependencies": [\
+            ["postgres", "npm:3.2.4"]\
           ],\
           "linkType": "HARD"\
         }]\

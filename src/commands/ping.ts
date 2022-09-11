@@ -16,6 +16,9 @@ export const command: ChatCommand = {
   },
 
   async exec(int) {
-    int.reply({ content: 'Pong!', ephemeral: int.options.getBoolean('ephemeral') ?? true });
+    int.reply({
+      content: 'Pong!',
+      ephemeral: int.options.getBoolean('ephemeral') ?? true,
+    });
   },
 };

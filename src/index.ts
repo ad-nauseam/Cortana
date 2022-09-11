@@ -1,5 +1,6 @@
-import { Client, Collection } from 'discord.js';
+import { Client, Collection, Partials } from 'discord.js';
 import { loader } from './util/loader.js';
+import { DB } from './schemas/db.js';
 
 import type { ChatCommand } from '#types/Command';
 import type { Event } from '#types/Event';
@@ -10,6 +11,10 @@ declare global {
     export interface ProcessEnv {
       DISCORD_TOKEN: string;
       GUILD_ID: string;
+      STARBOARD_CHANNEL_ID: string;
+      STARBOARD_WEBHOOK_ID: string;
+      STARBOARD_WEBHOOK_TOKEN: string;
+      DB_CONN_STRING: string;
     }
   }
 }
@@ -17,14 +22,20 @@ declare global {
 declare module 'discord.js' {
   interface Client {
     commands: Collection<string, ChatCommand>;
+    /* eslint-disable @typescript-eslint/ban-types */
+    db: DB;
   }
 }
 
 class ADN extends Client {
   constructor() {
-    super({ intents: ['Guilds'] });
+    super({
+      intents: ['Guilds', 'GuildMessages', 'GuildMessageReactions', 'MessageContent'],
+      partials: [Partials.Reaction, Partials.Message],
+    });
 
     this.commands = new Collection<string, ChatCommand>();
+    this.db = new DB(process.env['DB_CONN_STRING']);
   }
 
   init() {
