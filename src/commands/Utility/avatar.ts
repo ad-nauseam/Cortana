@@ -16,7 +16,7 @@ export const command: ChatCommand = {
   },
 
   async exec(int) {
-    const user = int.options.getUser('user') || int.user;
+    const user = int.options.getUser('user') ?? int.user;
 
     int.reply({
       embeds: [
