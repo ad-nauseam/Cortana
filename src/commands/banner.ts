@@ -29,7 +29,7 @@ export const command: ChatCommand = {
       },
       {
         name: 'ephemeral',
-        description: 'Hide this message?',
+        description: 'Hide this message in case the user has a banner?',
         type: atype.Boolean,
       },
     ],
@@ -38,15 +38,15 @@ export const command: ChatCommand = {
   async exec(int) {
     const user = int.options.getUser('user') ?? int.user;
     await int.client.users.fetch(user, { force: true });
-    const ephemeral = int.options.getBoolean('ephemeral') ?? true;
-    const extension = (int.options.getString('format') ?? 'webp') as ImageURLOptions['extension'];
-
+    
     if (!user.bannerURL()) {
-      return int.reply({ content: 'This user has no banner', ephemeral });
+        return int.reply({ content: 'This user has no banner', ephemeral: true });
     }
+
+    const extension = (int.options.getString('format') ?? 'webp') as ImageURLOptions['extension'];
     const options: ImageURLOptions = {
       forceStatic: extension !== 'gif',
-      extension: extension,
+      extension,
       size: int.options.getNumber('size') as ImageURLOptions['size'],
     };
 
@@ -58,7 +58,7 @@ export const command: ChatCommand = {
           .setImage(user.bannerURL(options)!)
           .setTimestamp(),
       ],
-      ephemeral,
+      ephemeral: int.options.getBoolean('ephemeral') ?? true,
     });
   },
 };
