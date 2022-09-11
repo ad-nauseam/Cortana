@@ -17,7 +17,7 @@ export class DB {
     return this.sql<Starboard[]>`DELETE FROM starboard WHERE oid=${id} RETURNING *`;
   }
 
-  starboardExists(id: string) {
+  starboardGet(id: string) {
     return this.sql<Starboard[]>`SELECT * FROM starboard WHERE oid=${id}`;
   }
 

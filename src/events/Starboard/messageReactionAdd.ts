@@ -22,7 +22,7 @@ export const event: Event<'messageReactionAdd'> = {
       );
 
       const content = `⭐ ${mr.count} ${mr.message.channel}\n ${mr.message.content ? `> ${mr.message.content}` : ''}`;
-      const exists = await mr.client.db.starboardExists(mr.message.id);
+      const exists = await mr.client.db.starboardGet(mr.message.id);
       if (!exists.length) {
         const nm = await webhook.send({
           username: mr.message.author?.username || '',

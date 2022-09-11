@@ -14,7 +14,7 @@ export const event: Event<'messageReactionRemove'> = {
     if (!channel) return console.log('Invalid Starboard channel');
     if (!channel.isTextBased()) return console.log('Starboard channel must be text based');
 
-    const exists = await mr.client.db.starboardExists(mr.message.id);
+    const exists = await mr.client.db.starboardGet(mr.message.id);
     if (!exists.length) return;
 
     const content = `⭐ ${mr.count} ${mr.message.channel}\n ${mr.message.content ? `> ${mr.message.content}` : ''}`;

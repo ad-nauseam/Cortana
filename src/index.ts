@@ -1,4 +1,4 @@
-import { Client, Collection, Partials } from 'discord.js';
+import { Client, Collection, Partials, IntentsBitField } from 'discord.js';
 import { loader } from './util/loader.js';
 import { DB } from './schemas/db.js';
 
@@ -30,7 +30,12 @@ declare module 'discord.js' {
 class ADN extends Client {
   constructor() {
     super({
-      intents: ['Guilds', 'GuildMessages', 'GuildMessageReactions', 'MessageContent'],
+      intents: [
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.MessageContent,
+        IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.GuildMessageReactions
+      ],
       partials: [Partials.Reaction, Partials.Message],
     });
 
