@@ -16,15 +16,10 @@ export const event: Event<'messageReactionAdd'> = {
       if (!channel) return console.log('Invalid Starboard channel');
       if (!channel.isTextBased()) return console.log('Starboard channel must be text based');
 
-      const webhook = await mr.client.fetchWebhook(
-        process.env['STARBOARD_WEBHOOK_ID'],
-        process.env['STARBOARD_WEBHOOK_TOKEN'],
-      );
-
-      const content = `⭐ ${mr.count} ${mr.message.channel}\n ${mr.message.content ? `> ${mr.message.content}` : ''}`;
+      const content = `⭐ ${mr.count} ${mr.message.channel}\n\n${mr.message.content || ''}`;
       const exists = await mr.client.db.starboardGet(mr.message.id);
       if (!exists) {
-        const nm = await webhook.send({
+        const nm = await mr.client.starboard.send({
           username: mr.message.author?.username || '',
           avatarURL: mr.message.author?.displayAvatarURL(),
           content,
@@ -35,11 +30,12 @@ export const event: Event<'messageReactionAdd'> = {
               new ButtonBuilder().setLabel('Jump').setStyle(ButtonStyle.Link).setURL(mr.message.url),
             ),
           ],
+          allowedMentions: { parse: [] },
         });
 
         await mr.client.db.starboardAdd(nm.id, mr.message.id);
       } else {
-        webhook.editMessage(exists.id, { content });
+        mr.client.starboard.editMessage(exists.id, { content });
       }
     }
   },

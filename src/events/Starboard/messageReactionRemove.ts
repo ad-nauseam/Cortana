@@ -17,18 +17,13 @@ export const event: Event<'messageReactionRemove'> = {
     const exists = await mr.client.db.starboardGet(mr.message.id);
     if (!exists) return;
 
-    const content = `⭐ ${mr.count} ${mr.message.channel}\n ${mr.message.content ? `> ${mr.message.content}` : ''}`;
+    const content = `⭐ ${mr.count} ${mr.message.channel}\n\n${mr.message.content || ''}`;
 
     if (mr.count <= 1) {
       channel.messages.delete(exists.id);
-      await mr.client.db.starboardDelete(exists.id);
+      await mr.client.db.starboardDelete(exists.oid);
     } else {
-      const webhook = await mr.client.fetchWebhook(
-        process.env['STARBOARD_WEBHOOK_ID'],
-        process.env['STARBOARD_WEBHOOK_TOKEN'],
-      );
-
-      webhook.editMessage(exists.id, { content });
+      mr.client.starboard.editMessage(exists.id, { content });
     }
   },
 };
