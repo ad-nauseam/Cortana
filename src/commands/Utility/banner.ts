@@ -59,7 +59,7 @@ export const command: ChatCommand = {
           author: { name: user.tag, icon_url: user.displayAvatarURL() },
           color: 0x00baf3,
           image: { url },
-          timestamp: Date.now().toString(),
+          timestamp: new Date().toISOString(),
         },
       ],
       ephemeral: int.options.getBoolean('ephemeral') ?? true,
