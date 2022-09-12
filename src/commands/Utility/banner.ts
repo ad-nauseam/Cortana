@@ -8,28 +8,28 @@ const imageSizes: number[] = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096];
 export const command: ChatCommand = {
   data: {
     name: 'banner',
-    description: 'Displays the banner of a user.',
+    description: 'Display a user\'s banner',
     options: [
       {
         name: 'user',
-        description: 'Select a user to display their banner!',
+        description: 'The user\'s banner to display',
         type: atype.User,
       },
       {
         name: 'format',
-        description: 'The type of the banner image (defaults to webp).',
+        description: 'The type of the banner image (defaults to webp)',
         type: atype.String,
         choices: imageTypes.map(type => ({ name: type, value: type })),
       },
       {
         name: 'size',
-        description: 'The size of the image (defaults to 1024).',
+        description: 'The size of the image (defaults to 1024)',
         type: atype.Number,
         choices: imageSizes.map(type => ({ name: type.toString(), value: type })),
       },
       {
         name: 'ephemeral',
-        description: 'Hide this message in case the user has a banner?',
+        description: 'Hide this message?',
         type: atype.Boolean,
       },
     ],
@@ -50,13 +50,13 @@ export const command: ChatCommand = {
     const url = user.bannerURL(options);
 
     if (!url) {
-      return int.reply({ content: 'This user has no banner', ephemeral: true });
+      return int.reply({ content: 'This user has no banner.', ephemeral: true });
     }
 
     int.reply({
       embeds: [
         {
-          author: { name: user.tag, icon_url: user.displayAvatarURL() },
+          author: { name: user.tag, icon_url: user.displayAvatarURL({ size: 256 }) },
           color: 0x00baf3,
           image: { url },
           timestamp: new Date().toISOString(),
