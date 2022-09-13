@@ -38,6 +38,10 @@ class ADN extends Client {
       partials: [Partials.Reaction, Partials.Message, Partials.User],
     });
 
+    ['DISCORD_TOKEN', 'GUILD_ID', 'STARBOARD_CHANNEL_ID', 'DB_CONN_STRING'].forEach(x => {
+      if (!(x in process.env)) throw new Error(`Environment variable '${x}' not defined`);
+    });
+
     this.commands = new Collection<string, ChatCommand>();
     this.db = new DB(process.env['DB_CONN_STRING']);
   }

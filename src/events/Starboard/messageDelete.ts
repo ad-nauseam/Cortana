@@ -9,10 +9,10 @@ export const event: Event<'messageDelete'> = {
     const deleted = await message.client.db.starboardDelete(message.id);
     if (!deleted) return;
 
-    const channel = message.guild.channels.cache.get(process.env['STARBOARD_CHANNEL_ID']);
-    if (!channel) return console.log('No starboard ID??');
-    if (!channel.isTextBased()) return console.log('Starboard channel must be text based');
+    const starboardChannel = message.guild.channels.cache.get(process.env['STARBOARD_CHANNEL_ID']);
+    if (!starboardChannel) return console.log('No starboard ID??');
+    if (!starboardChannel.isTextBased()) return console.log('Starboard channel must be text based');
 
-    channel.messages.delete(deleted.id);
+    starboardChannel.messages.delete(deleted.id);
   },
 };

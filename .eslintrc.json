@@ -18,6 +18,10 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "eqeqeq": [
+            "error",
+            "always"
+        ],
         "linebreak-style": [
             "error",
             "unix"
