@@ -4,7 +4,6 @@ export const event: Event<'messageReactionRemoveAll'> = {
   name: 'messageReactionRemoveAll',
 
   async exec(message) {
-
     const channelId = process.env['STARBOARD_CHANNEL_ID'];
     if (!channelId) return console.log('No STARBOARD_CHANNEL_ID!');
 

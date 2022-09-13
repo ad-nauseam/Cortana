@@ -1,4 +1,5 @@
-import { Client, Collection, Partials, IntentsBitField, Webhook } from 'discord.js';
+import type { Webhook } from 'discord.js';
+import { Client, Collection, Partials, IntentsBitField } from 'discord.js';
 import { loader } from './util/loader.js';
 import { DB } from './schemas/db.js';
 
@@ -21,7 +22,7 @@ declare module 'discord.js' {
   interface Client {
     commands: Collection<string, ChatCommand>;
     db: DB;
-    starboard: Webhook
+    starboard: Webhook;
   }
 }
 
