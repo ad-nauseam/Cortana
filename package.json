@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "env-cmd node .",
+    "start:prod": "env-cmd -f .prod.env node .",
     "build": "rimraf dist && tsc",
     "format": "yarn run prettier && yarn run lint:fix",
     "prettier": "prettier --write \"src/**/*.ts\"",

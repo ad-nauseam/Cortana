@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    container_name: cortana
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+  db:
+    build:
+      context: ./migrations
+      dockerfile: ./Dockerfile
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: adnauseam
+    ports:
+      - 5555:5432
