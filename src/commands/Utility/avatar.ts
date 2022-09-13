@@ -1,4 +1,5 @@
-import { ApplicationCommandOptionType as atype, ImageURLOptions } from 'discord.js';
+import type { ImageURLOptions } from 'discord.js';
+import { ApplicationCommandOptionType as atype } from 'discord.js';
 
 import type { ChatCommand } from '#types/Command';
 
@@ -8,11 +9,11 @@ const imageSizes: number[] = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096];
 export const command: ChatCommand = {
   data: {
     name: 'avatar',
-    description: 'Display a user\'s avatar',
+    description: "Display a user's avatar",
     options: [
       {
         name: 'user',
-        description: 'The user\'s avatar to display',
+        description: "The user's avatar to display",
         type: atype.User,
       },
       {

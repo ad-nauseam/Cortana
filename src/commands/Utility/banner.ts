@@ -8,11 +8,11 @@ const imageSizes: number[] = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096];
 export const command: ChatCommand = {
   data: {
     name: 'banner',
-    description: 'Display a user\'s banner',
+    description: "Display a user's banner",
     options: [
       {
         name: 'user',
-        description: 'The user\'s banner to display',
+        description: "The user's banner to display",
         type: atype.User,
       },
       {
@@ -59,7 +59,7 @@ export const command: ChatCommand = {
           author: { name: user.tag, icon_url: user.displayAvatarURL({ size: 256 }) },
           color: 0x00baf3,
           image: { url },
-          timestamp: Date.now().toString(),
+          timestamp: new Date().toISOString(),
         },
       ],
       ephemeral: int.options.getBoolean('ephemeral') ?? true,

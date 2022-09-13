@@ -1,3 +1,4 @@
+import type { Webhook } from 'discord.js';
 import { Client, Collection, Partials, IntentsBitField } from 'discord.js';
 import { loader } from './util/loader.js';
 import { DB } from './schemas/db.js';
@@ -12,8 +13,6 @@ declare global {
       DISCORD_TOKEN: string;
       GUILD_ID: string;
       STARBOARD_CHANNEL_ID: string;
-      STARBOARD_WEBHOOK_ID: string;
-      STARBOARD_WEBHOOK_TOKEN: string;
       DB_CONN_STRING: string;
     }
   }
@@ -22,8 +21,8 @@ declare global {
 declare module 'discord.js' {
   interface Client {
     commands: Collection<string, ChatCommand>;
-    /* eslint-disable @typescript-eslint/ban-types */
     db: DB;
+    starboard: Webhook;
   }
 }
 
@@ -36,7 +35,11 @@ class ADN extends Client {
         IntentsBitField.Flags.GuildMessages,
         IntentsBitField.Flags.GuildMessageReactions,
       ],
-      partials: [Partials.Reaction, Partials.Message],
+      partials: [Partials.Reaction, Partials.Message, Partials.User],
+    });
+
+    ['DISCORD_TOKEN', 'GUILD_ID', 'STARBOARD_CHANNEL_ID', 'DB_CONN_STRING'].forEach(x => {
+      if (!(x in process.env)) throw new Error(`Environment variable '${x}' not defined`);
     });
 
     this.commands = new Collection<string, ChatCommand>();
