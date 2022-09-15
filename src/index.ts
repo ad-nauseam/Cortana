@@ -1,6 +1,7 @@
 import type { Webhook } from 'discord.js';
 import { Client, Collection, Partials, IntentsBitField } from 'discord.js';
 import { loader } from './util/loader.js';
+import { Logger } from './util/logger.js'
 import { DB } from './schemas/db.js';
 
 import type { ChatCommand } from '#types/Command';
@@ -23,6 +24,7 @@ declare module 'discord.js' {
     commands: Collection<string, ChatCommand>;
     db: DB;
     starboard: Webhook;
+    logger: Logger
   }
 }
 
@@ -44,6 +46,7 @@ class ADN extends Client {
 
     this.commands = new Collection<string, ChatCommand>();
     this.db = new DB(process.env['DB_CONN_STRING']);
+    this.logger = new Logger()
   }
 
   init() {

@@ -24,6 +24,10 @@ export const event: Event<'ready'> = {
       client.starboard = hook;
     }
 
-    console.log(`Ready! Logged in as ${client.user.tag}`);
+    client.logger.success(`Ready! Logged in as ${client.user.tag}`, true);
+    
+    const version = await client.db.version()
+    
+    client.logger.success(`DB ready: ${version}`)
   },
 };
