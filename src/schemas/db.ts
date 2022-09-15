@@ -10,8 +10,8 @@ export class DB {
   }
 
   async version() {
-    const res = await this.sql<{ version: string }[]>`SELECT version()`
-    return res[0].version.replace(/(?<=\d)\s.+/gs, '')
+    const res = await this.sql<{ version: string }[]>`SELECT version()`;
+    return res[0].version.replace(/(?<=\d)\s.+/gs, '');
   }
 
   starboardDeleteBulk(list: string[]) {

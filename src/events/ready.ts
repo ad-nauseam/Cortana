@@ -25,9 +25,9 @@ export const event: Event<'ready'> = {
     }
 
     client.logger.success(`Ready! Logged in as ${client.user.tag}`, true);
-    
-    const version = await client.db.version()
-    
-    client.logger.success(`DB ready: ${version}`)
+
+    const version = await client.db.version();
+
+    client.logger.success(`DB ready: ${version}`);
   },
 };
