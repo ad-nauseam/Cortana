@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS public.starboard
 TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.starboard
-    OWNER to user;
+    OWNER to "user";

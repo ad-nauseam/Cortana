@@ -7,10 +7,7 @@ export const event: Event<'messageReactionRemove'> = {
     reaction = await reaction.fetch();
     if (reaction.emoji.name !== '⭐') return;
 
-    const channelId = process.env['STARBOARD_CHANNEL_ID'];
-    if (!channelId) return console.log('No STARBOARD_CHANNEL_ID!');
-
-    const starboardChannel = reaction.client.channels.cache.get(channelId);
+    const starboardChannel = reaction.client.channels.cache.get(process.env.STARBOARD_CHANNEL_ID);
     if (!starboardChannel) return console.log('Invalid Starboard channel');
     if (!starboardChannel.isTextBased()) return console.log('Starboard channel must be text based');
 

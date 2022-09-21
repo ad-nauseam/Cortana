@@ -6,7 +6,8 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      - db
+      db:
+        condition: service_healthy
   db:
     build:
       context: ./migrations
@@ -19,3 +20,28 @@ services:
       POSTGRES_DB: adnauseam
     ports:
       - 5555:5432
+    healthcheck:
+      test: pg_isready -U user -d adnauseam
+      interval: 10s
+      timeout: 30s
+      retries: 3
+      start_period: 10s
+  piston:
+    image: ghcr.io/engineer-man/piston
+    container_name: piston
+    restart: unless-stopped
+    ports:
+      - 2000:2000
+    tmpfs:
+      - /piston/jobs:exec,uid=1000,gid=1000,mode=711
+      - /tmp:exec
+  logs:
+    image: amir20/dozzle
+    container_name: dozzle
+    restart: unless-stopped
+    profiles:
+      - logs
+    ports:
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

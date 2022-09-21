@@ -5,6 +5,7 @@ function init(open: number) {
 }
 const Colors = {
   bold: init(1),
+  underline: init(4),
   black: init(30),
   red: init(31),
   green: init(32),
@@ -12,24 +13,25 @@ const Colors = {
 };
 
 export class Logger {
-  log({ content, erase }: { content: string; erase: boolean }, ...colors: (keyof typeof Colors)[]) {
+  colors = Colors;
+
+  log({ content, erase }: { content: string | string[]; erase: boolean }, ...colors: (keyof typeof Colors)[]) {
     if (erase) console.clear();
-    return console.log(`[${new Date().toLocaleTimeString()}] ${colors.reduce((a, c) => Colors[c](a), content)}`);
+    if (!Array.isArray(content)) content = [content];
+    content.forEach(str =>
+      console.log(`[${new Date().toLocaleTimeString()}] :: ${colors.reduce((a, c) => Colors[c](a), str)}`),
+    );
   }
 
-  success(content: string, erase = false) {
+  success(content: string | string[], erase = false) {
     return this.log({ content, erase }, 'green');
   }
 
-  error(content: string, erase = false) {
+  error(content: string | string[], erase = false) {
     return this.log({ content, erase }, 'red', 'bold');
   }
 
-  debug(content: string, erase = false) {
-    return this.log({ content, erase }, 'magenta');
-  }
-
-  test({ content, erase = false }: { content: string; erase?: boolean }) {
+  debug(content: string | string[], erase = false) {
     return this.log({ content, erase }, 'magenta');
   }
 }
