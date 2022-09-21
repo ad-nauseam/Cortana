@@ -15,5 +15,8 @@
     "paths": {
       "#types/*": ["types/*"]
     }
-  }
+  },
+  "exclude": [
+    "piston/packages"
+  ]
 }

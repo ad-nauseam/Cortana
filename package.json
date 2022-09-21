@@ -31,6 +31,7 @@
   "dependencies": {
     "bufferutil": "^4.0.6",
     "discord.js": "^14.3.0",
+    "discordjs-docs-parser": "^1.3.1",
     "erlpack": "^0.1.4",
     "glob": "^8.0.3",
     "postgres": "^3.2.4",

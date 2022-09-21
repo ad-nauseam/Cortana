@@ -1,3 +1,5 @@
+import { ALLOWED_LANGS } from '../util/constants.js';
+
 import type { Event } from '#types/Event';
 import type { TextChannel } from 'discord.js';
 
@@ -24,6 +26,27 @@ export const event: Event<'ready'> = {
       client.starboard = hook;
     }
 
-    console.log(`Ready! Logged in as ${client.user.tag}`);
+    client.logger.success(`Ready! Logged in as ${client.user.tag}`);
+
+    const version = await client.db.version();
+
+    client.logger.success(`DB ready: ${version}`);
+
+    const runtimes = await client.piston.runtimes();
+    if (!runtimes) return client.logger.error('No conneciton to piston instance');
+
+    const runtimeLangs = runtimes.map(x => x.aliases.concat(x.language)).flat();
+
+    if (!Object.keys(ALLOWED_LANGS).every(x => runtimeLangs.includes(x)))
+      return client.logger.error('Piston spec file not installed');
+
+    console.table(
+      Object.entries(ALLOWED_LANGS).map(x => {
+        return {
+          'Piston Runtime': x[0],
+          Version: x[1],
+        };
+      }),
+    );
   },
 };

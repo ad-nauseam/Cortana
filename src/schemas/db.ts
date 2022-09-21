@@ -9,6 +9,11 @@ export class DB {
     this.sql = postgres(conn);
   }
 
+  async version() {
+    const res = await this.sql<{ version: string }[]>`SELECT version()`;
+    return res[0].version.replace(/(?<=\d)\s.+/gs, '');
+  }
+
   starboardDeleteBulk(list: string[]) {
     return this.sql<Starboard[]>`DELETE FROM starboard WHERE oid IN ${this.sql(list)} RETURNING *`;
   }

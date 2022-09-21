@@ -13,5 +13,16 @@ export const event: Event<'interactionCreate'> = {
         return console.log(e);
       }
     }
+
+    if (int.isModalSubmit()) {
+      const modal = int.client.modals.get(int.customId);
+      if (!modal) return;
+
+      try {
+        await modal.exec(int);
+      } catch (e) {
+        return console.log(e);
+      }
+    }
   },
 };
